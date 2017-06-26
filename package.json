@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "share-by-localtunnel": "lt --port 8088",
-    "security-check": "nsp check"
+    "security-check": "nsp check",
+    "start": "node buildScripts/srcServer.js"
   },
   "repository": {
     "type": "git",
