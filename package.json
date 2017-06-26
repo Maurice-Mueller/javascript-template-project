@@ -4,7 +4,7 @@
   "description": "a simple javascript template project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "security-check": "nsp check"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/MoePad/javascript-template-project/issues"
   },
-  "homepage": "https://github.com/MoePad/javascript-template-project#readme"
+  "homepage": "https://github.com/MoePad/javascript-template-project#readme",
+  "devDependencies": {
+    "express": "4.15.3"
+  }
 }

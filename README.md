@@ -36,28 +36,19 @@ Popular alternatives: bower, npm, JSPM
 - install Node.js (which includes npm)
   Node.js is a set of libraries for JavaScript which allows it to be used outside of the browser. It is primarily focused on creating simple, easy to build network clients and servers.
 
-- add package.json (manifest file for npm); e.g. run ```npm init```
-### Basic content
-```
-{
-  "name": "[PROJECT_NAME]",
-  "version": "1.0.0",
-  "description": "a simple javascript template project",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MoePad/javascript-template-project.git"
-  },
-  "author": "MoePad",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/MoePad/javascript-template-project/issues"
-  },
-  "homepage": "https://github.com/MoePad/javascript-template-project#readme"
-}
+- add package.json (manifest file for npm); e.g. ```npm init```
+  - all binaries of node_modules/.bin are on the path for using inside scripts
 
-```
--
+- add Security Scanning
+  - ```npm install -g nsp```
+  - for manually check run ```nsp check```
+  - add a script in package.json
+    - ```
+      {
+        ...
+        "scripts": {
+          ...
+          "security-check": "nsp check"
+        }
+      }
+    ```
