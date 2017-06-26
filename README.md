@@ -51,7 +51,7 @@ Popular alternatives: bower, npm, JSPM
           "security-check": "nsp check"
         }
       }
-    ```
+      ```
 
     ## Development Web Server
 
