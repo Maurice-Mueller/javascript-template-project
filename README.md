@@ -13,6 +13,7 @@ Plugins for:
 -- https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig
 - Atom
 - ...
+- list of plugins: http://editorconfig.org/#download
 
 ### Basic content
 ```
