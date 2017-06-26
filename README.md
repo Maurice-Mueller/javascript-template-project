@@ -91,6 +91,30 @@ Popular alternatives:
       }
     })
     ```
+- run express ```node buildScripts/srcServer.js```
+
+## set-up Sharing Work-in-progress
+
+Popular alternatives:
+- localtunnel: easily share work on your local machine
+- ngrok: more setup but more security; needs an account on ngrok website
+- Surge: only support static files
+- now: deployment to the cloud
+
+### local tunnel
+- install ```npm install localtunnel --save-dev```
+- add a npm script ```
+  - ```
+    {
+      ...
+      "scripts": {
+        ...
+        "share-by-localtunnel": "npm run lt -port 8088"
+      }
+    }
+    ```
+- run localtunnel _after_ running the server: ```npm run share-by-localtunnel```
+
 
 
 

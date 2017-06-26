@@ -4,6 +4,7 @@
   "description": "a simple javascript template project",
   "main": "index.js",
   "scripts": {
+    "share-by-localtunnel": "lt --port 8088",
     "security-check": "nsp check"
   },
   "repository": {
@@ -18,6 +19,7 @@
   "homepage": "https://github.com/MoePad/javascript-template-project#readme",
   "devDependencies": {
     "express": "4.15.3",
+    "localtunnel": "1.8.3",
     "open": "0.0.5"
   }
 }
