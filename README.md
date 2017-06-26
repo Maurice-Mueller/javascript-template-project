@@ -52,3 +52,16 @@ Popular alternatives: bower, npm, JSPM
         }
       }
     ```
+
+    ## Development Web Server
+
+    Popular alternatives:
+    - http-server: easy to use
+    - live-server: easy to use
+    - express: more advanced and production ready
+    - koa, hapi: like express
+    - budo: comes with browserify
+    - webpack dev server: comes with webpack
+    - browsersync: servers everywhere the same page; e.g. input in the desktop browser will be seen on mobile -> nice for cross-plattform testing
+
+
