@@ -1,4 +1,6 @@
-# .editorconfig
+## .editorconfig
+
+EditorConfig is a file format and collection of text editor plugins for maintaining consistent coding styles between different editors and IDEs.
 
 Supported by:
 - IntellijIDEA
@@ -12,7 +14,7 @@ Plugins for:
 - Atom
 - ...
 
-## Basic content
+### Basic content
 ```
 # top-most EditorConfig file
 root = true
