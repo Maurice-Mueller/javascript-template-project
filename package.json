@@ -6,7 +6,9 @@
   "scripts": {
     "share-by-localtunnel": "lt --port 8088",
     "security-check": "nsp check",
-    "start": "node buildScripts/srcServer.js"
+    "start": "npm-run-all --parallel security-check start-dev-server",
+    "start-dev-server": "node buildScripts/srcServer.js",
+    "prestart-dev-server": "node buildScripts/startMessageSrcServer.js"
   },
   "repository": {
     "type": "git",
@@ -19,8 +21,10 @@
   },
   "homepage": "https://github.com/MoePad/javascript-template-project#readme",
   "devDependencies": {
+    "chalk": "1.1.3",
     "express": "4.15.3",
     "localtunnel": "1.8.3",
+    "npm-run-all": "^4.0.2",
     "open": "0.0.5"
   }
 }

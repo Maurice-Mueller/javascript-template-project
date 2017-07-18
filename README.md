@@ -115,6 +115,14 @@ Popular alternatives:
     ```
 - run localtunnel _after_ running the server: ```npm run share-by-localtunnel```
 
+## advanced scripting (with npm)
 
-
-
+- install chalk: ```npm install chalk --save-dev```
+  - Terminal string styling done right
+- run a script before an other
+  - use as a name _pre_[script]: e.g. prestart
+- run a script after an other
+  - use as a name _post_[script]: e.g. poststart
+- run parallel
+  - install npm-run-all: ```npm install npm-run-all --save-dev```
+  - execute ```npm-run-all --parallel [script] [script] [...]```
