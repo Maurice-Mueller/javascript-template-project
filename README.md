@@ -167,3 +167,64 @@ Popular alternatives:
       ...
     }
     ```
+
+## Bundler
+Popular alternatives:
+- browserify
+  - bundles JS code for browsers
+  - many plugins (minification, linting, ...)
+- webpack
+  - can also bundle CSS, images, ...
+  - built-in hot-reloading web server
+  - tree shaking
+- rollup
+  - tree shaking
+  - faster production code compared to webpack and browserify
+  - good for library development
+  - no hot-reloading
+- JSPM
+  - universal module loader
+  - can also load modules during runtime
+  - own package manager (i.e. it can use resources from npm, git, ...)
+  - uses rollup
+
+### Webpack Configuration
+- create a new folder ```webpack```
+- create a new file ```webpack/webpack.config.dev.js```
+  - ```
+      import path from 'path'
+
+      export default {
+        debug: true,
+        devtool: 'inline-source-map',
+        noInfo: false,
+        entry: [
+          path.resolve(__dirname, '../src/index')
+        ],
+        target: 'web',
+        output: {
+          path: path.resolve(__dirname, 'src'),
+          publicPath: '/',
+          filename: 'bundle.js'
+        },
+        plugins: [],
+        module: {
+          loaders: [
+            {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
+            {test: /\.css$/, loaders: ['style','css']}
+          ]
+        }
+      }
+    ```
+  - debug: true/false; if debug informations will be shown
+  - devtool: quality vs compile speed
+  - noInfo: true/false; if webpack will not show a list of all files it is bundlig
+  - entry point: application entry point
+    - _path_ is used to get the full path; it comes with node; \_\_dirname is also part of _path_
+  - target: for which platform the package will be bundled for
+    - web, node, electron, ...
+  - output: the location, where the bundle will be stored
+    - *NOTE*: the development build will be served from memory and *no* physical files will be generated
+  - plugins: webpack plugins
+  - module: configuration which loader will be load what kind of files
+    - different loaders are availble for different types: JS, CSS, HTML, ...
