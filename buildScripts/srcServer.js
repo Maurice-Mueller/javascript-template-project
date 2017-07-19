@@ -1,9 +1,9 @@
-var express = require('express')
-var path = require('path')
-var open = require('open')
+import express from 'express'
+import path from 'path'
+import open from 'open'
 
-var port = 8088
-var app = express()
+const port = 8088
+const app = express()
 
 //any call to root (/)
 app.get('/', function(request, result){

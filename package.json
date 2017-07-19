@@ -7,7 +7,7 @@
     "share-by-localtunnel": "lt --port 8088",
     "security-check": "nsp check",
     "start": "npm-run-all --parallel security-check start-dev-server",
-    "start-dev-server": "node buildScripts/srcServer.js",
+    "start-dev-server": "babel-node buildScripts/srcServer.js",
     "prestart-dev-server": "babel-node buildScripts/startMessageSrcServer.js"
   },
   "repository": {
