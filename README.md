@@ -218,7 +218,6 @@ Popular alternatives:
       module: {
         loaders: [
           {test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader']},
-          {test: /\.css$/, loaders: ['style','css']}
         ]
       }
     }
@@ -241,3 +240,19 @@ Popular alternatives:
 - remember to use the filename specified in _webpack.config.dev.js->output.filename_
   - in the example, this is _bundle.js_
   - ```<script src='bundle.js'></script>```
+
+### Using CSS imports
+- ```npm install style-loader css-loader```
+- add loaders to webconfig
+  - ```
+    export default {
+        ...
+        module: {
+          ...,
+          {test: /\.css$/, loaders: ['style-loader','css-loader']}
+        }
+    }
+    ```
+- now you can import css files
+  - e.g. ```import './index.css'```
+- this approach will directly bundle the css file into the resulting \*.js file
