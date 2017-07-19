@@ -103,7 +103,7 @@ Popular alternatives:
 
 ### local tunnel
 - install ```npm install localtunnel --save-dev```
-- add a npm script ```
+- add a npm script
   - ```
     {
       ...
@@ -126,3 +126,44 @@ Popular alternatives:
 - run parallel
   - install npm-run-all: ```npm install npm-run-all --save-dev```
   - execute ```npm-run-all --parallel [script] [script] [...]```
+
+## Transpiler
+
+Popular alternatives:
+- Babel: latest stable and experimental features of JS, transpiled down to ES5
+- Typescript: adds type safety (supports ES6 and ES5) and interfaces
+- Elm: transpiles to JS; complete new language (with a lot of benefits)
+
+### Configuration of Babel
+- either in .babelrc
+  - no dependency to npm
+- or in package.json
+  - one less file
+- presets are available to prevent unneccessary transpilation
+  - e.g. babel-preset-es2015-node
+  - e.g. babel-preset-latest-minimal
+
+### install via npm
+- ```npm install babel-cli babel-core babel-preset-latest babel-register --save-dev```
+
+### .babelrc
+- create in the root of the project the file _.babelrc_
+- to use the latest features:
+  ```
+  {
+    "presets": ["latest"]
+  }
+  ```
+
+### in build scripts
+- for node support use _babel-node_
+  - ```
+    {
+      ...
+      "scripts": {
+          ...
+          "prestart-dev-server": "babel-node buildScripts/startMessageSrcServer.js"
+      },
+      ...
+    }
+    ```
