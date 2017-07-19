@@ -188,37 +188,45 @@ Popular alternatives:
   - own package manager (i.e. it can use resources from npm, git, ...)
   - uses rollup
 
+### install webpack
+```npm install webpack webpack-middleware webpack-dev-server babel-loader --save-dev```
+- webpack stuff
+- babel-loader: babel-loader for webpack
+
 ### Webpack Configuration
 - create a new folder ```webpack```
 - create a new file ```webpack/webpack.config.dev.js```
   - ```
-      import path from 'path'
+    import path from 'path'
 
-      export default {
+    export default {
+      devServer: {
         debug: true,
         devtool: 'inline-source-map',
-        noInfo: false,
-        entry: [
-          path.resolve(__dirname, '../src/index')
-        ],
-        target: 'web',
-        output: {
-          path: path.resolve(__dirname, 'src'),
-          publicPath: '/',
-          filename: 'bundle.js'
-        },
-        plugins: [],
-        module: {
-          loaders: [
-            {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
-            {test: /\.css$/, loaders: ['style','css']}
-          ]
-        }
+        noInfo: false
+      },
+      entry: [
+        path.resolve(__dirname, '../src/index')
+      ],
+      target: 'web',
+      output: {
+        path: path.resolve(__dirname, '../src'),
+        publicPath: '/',
+        filename: 'bundle.js'
+      },
+      plugins: [],
+      module: {
+        loaders: [
+          {test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader']},
+          {test: /\.css$/, loaders: ['style','css']}
+        ]
       }
+    }
     ```
-  - debug: true/false; if debug informations will be shown
-  - devtool: quality vs compile speed
-  - noInfo: true/false; if webpack will not show a list of all files it is bundlig
+  - devServer: configuration regarding the dev server
+    - debug: true/false; if debug informations will be shown
+    - devtool: quality vs compile speed
+    - noInfo: true/false; if webpack will not show a list of all files it is bundlig
   - entry point: application entry point
     - _path_ is used to get the full path; it comes with node; \_\_dirname is also part of _path_
   - target: for which platform the package will be bundled for
@@ -228,3 +236,8 @@ Popular alternatives:
   - plugins: webpack plugins
   - module: configuration which loader will be load what kind of files
     - different loaders are availble for different types: JS, CSS, HTML, ...
+
+### Using bundled file in html
+- remember to use the filename specified in _webpack.config.dev.js->output.filename_
+  - in the example, this is _bundle.js_
+  - ```<script src='bundle.js'></script>```
