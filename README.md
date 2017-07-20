@@ -355,3 +355,110 @@ Popular alternatives:
         - this will continuously watch your files
         - add this to your start script
           - ```"start": "npm-run-all --parallel security-check start-dev-server lint:watch"```
+
+
+## Testing
+
+### Testing Framework
+
+Popular alternatives:
+- mocha
+  - highly configurable
+- jasmine
+  - built-in assertions
+- tape
+  - simple
+- Jest
+  - wrapper around jasmine
+
+### Assertion Framework
+
+Popular alternatives:
+- chai
+- should.js
+- expect
+
+### Helper libraries
+- JSDOM
+  - simulates browser DOM for testing DOM without a browser
+- cheerio
+  - query virtual DOM like jQuery
+
+### Test runtime
+- browser
+  - karma, testem
+- headless browser
+  - phantomJS
+- in-memory DOM
+  - JSDOM
+
+### Where to put test files
+- centralized (i.e. own folder)
+  - less _noise_ inside the src folder
+  - convention
+- alongside the source file
+  - easier import
+  - no recreating of folder structure
+  - clear visibility (what files have/lack tests)
+  - convenient to open
+
+### setup (with mocha)
+
+- install mocha: ```npm install mocha --save-dev```
+- install chai (as assertion framework): ```npm install chai --save-dev```
+- install JSDOM: ```npm install jsdom --save-dev```
+- create a test setup file, that will setup the test environment for mocha
+  - in _buildScripts/testSetup.js_
+    - ```
+      require('babel-register')() //register babel for transpiling before running tests
+      require.extensions['.css'] = function(){} //disable webpack features, that mocha doesn't understand (i.e. importing css)
+      ```
+- create a new npm script for running the tests
+  - ```"test": "mocha --reporter progress buildScripts/testSetup.js 'src/**/*.test.js'"```
+    - reporter: the style of the test report (here: progress)
+    - buildScripts/testSetup.js: the file that will be executed before the tests will be running
+    - 'src/\*\*/\*.test.js': expression to determine the location of the test files
+
+### writing tests
+- create the test file in the same directory as the file to test
+- e.g. src/index.test.js
+  - ```
+    import {expect} from 'chai'
+
+    describe('simple test', () => {
+      it('true equals true', () => {
+        expect(true).to.equal(true)
+      }),
+      it('simple math', () => {
+        expect(1+2).to.equal(3)
+      })
+    })
+    ```
+
+### writing DOM tests
+- ```
+  import jsdom from 'jsdom'
+  import fs from 'fs' //comes with nodeJS -> FileSystem access
+  const { JSDOM } = jsdom; //get the constructor
+
+  describe('DOM index.html', () => {
+    it('should display hello', () => {
+      const indexFile = fs.readFileSync('./src/index.html', 'utf-8')
+      const dom = new JSDOM(indexFile)
+      const heading = dom.window.document.getElementsByTagName('h1')[0]
+      expect(heading.innerHTML).to.equal('Hello World!')
+    })
+  })
+  ```
+
+### Async tests
+- ```
+  describe('some async test', () => {
+    it('simple test', (done) => { //callback for calling when test is done
+      fs.readFile('./src/index.html', 'utf-8', file => { //async file read
+        expect(true).to.equal(true)
+        done() //tell mocha the test is done
+      })
+    })
+  })
+  ```
