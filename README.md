@@ -481,5 +481,5 @@ Popular alternatives:
 - new npm script: ```"test:watch": "watch-run -p 'src/**' npm run test" ```
 - expand start script: ```"start": "npm-run-all --parallel security-check start-dev-server lint:watch test:watch"```
 
-Alternative, where only the test files itself will be watched:
+Alternative, where only the test files themselves will be watched:
 - new npm script: ```"test:watch": "npm run test -- --watch" ```
