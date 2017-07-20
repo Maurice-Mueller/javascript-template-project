@@ -200,11 +200,7 @@ Popular alternatives:
     import path from 'path'
 
     export default {
-      devServer: {
-        debug: true,
-        devtool: 'inline-source-map',
-        noInfo: false
-      },
+      devtool: 'inline-source-map',
       entry: [
         path.resolve(__dirname, '../src/index')
       ],
@@ -218,14 +214,26 @@ Popular alternatives:
       module: {
         loaders: [
           {test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader']},
+          {test: /\.css$/, loaders: ['style-loader','css-loader']}
         ]
       }
     }
     ```
-  - devServer: configuration regarding the dev server
-    - debug: true/false; if debug informations will be shown
-    - devtool: quality vs compile speed
-    - noInfo: true/false; if webpack will not show a list of all files it is bundlig
+  - devtool: how to map bundled source back to original one
+    - quality vs. speed
+    - options
+      - DEVELOPMENT
+        - eval: Each module is executed with eval() and //@ sourceURL. This is pretty fast. The main disadvantage is that it doesn't display line numbers correctly since it gets mapped to transpiled code instead of the original code.
+        - inline-source-map: A SourceMap is added as a DataUrl to the bundle.
+        - eval-source-map: Each module is executed with eval() and a SourceMap is added as a DataUrl to the eval(). Initially it is slow, but it provides fast rebuild speed and yields real files. Line numbers are correctly mapped since it gets mapped to the original code.
+        - cheap-eval-source-map: Similar to _eval-source-map_, each module is executed with eval(). However, with this option the Source Map is passed as a Data URL to the eval() call. It is "cheap" because it doesn't have column mappings, it only maps line numbers.
+        - cheap-module-eval-source-map: Similar to cheap-eval-source-map, however in this case this case loaders are able to process the mapping for better results.
+      - PRODUCTION
+        - source-map: A full SourceMap is emitted as a separate file. It adds a reference comment to the bundle so development tools know where to find it.
+        - hidden-source-map: Same as source-map, but doesn't add a reference comment to the bundle. Useful if you only want SourceMaps to map error stack traces from error reports, but don't want to expose your SourceMap for the browser development tools.
+        - cheap-source-map: A SourceMap without column-mappings ignoring loaded Source Maps.
+        - cheap-module-source-map: A SourceMap without column-mappings that simplifies loaded Source Maps to a single mapping per line.
+        - nosources-source-map: A SourceMap is created without the sourcesContent in it. It can be used to map stack traces on the client without exposing all of the source code.
   - entry point: application entry point
     - _path_ is used to get the full path; it comes with node; \_\_dirname is also part of _path_
   - target: for which platform the package will be bundled for
@@ -256,3 +264,11 @@ Popular alternatives:
 - now you can import css files
   - e.g. ```import './index.css'```
 - this approach will directly bundle the css file into the resulting \*.js file
+
+
+### Debugging bundled
+Sourcemaps maps bundled code back to the original source. They will only be
+downloaded if you open the developer tools.
+- add ```debugger``` as a breakpoint somewhere in the code
+- open dev console in browser and then open your app
+- this works in Chrome; Firefox seems not to support this feature
