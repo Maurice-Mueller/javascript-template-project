@@ -265,10 +265,93 @@ Popular alternatives:
   - e.g. ```import './index.css'```
 - this approach will directly bundle the css file into the resulting \*.js file
 
-
 ### Debugging bundled
 Sourcemaps maps bundled code back to the original source. They will only be
 downloaded if you open the developer tools.
 - add ```debugger``` as a breakpoint somewhere in the code
 - open dev console in browser and then open your app
 - this works in Chrome; Firefox seems not to support this feature
+
+
+## Linting
+
+Find errors before they find you ;)
+
+Popular alternatives:
+- ESLint
+  - no built-in typescript support
+- TSLint
+
+### install ESLint
+- plain JS: ESLint
+  - ```npm install eslint --save-dev```
+- JS with experimental features: babel-eslint
+  - ```npm install babel-eslint --save-dev```
+- disable editor plugins (to prevent overriding issues)
+
+### Configuration of ESLint
+- either in package.json
+  - ```
+    {
+      ...
+      "eslintConfig" : {
+        //PUT YOUR CONFIG HERE
+      }
+    }
+    ```
+- or in ```.eslintrc.json```
+  - other formats are supported as well: .eslintrc.js, .eslintrc.y(a)ml
+
+- choose your rules *or* use presets
+  - rules list: http://eslint.org/docs/rules/
+  - 0 / "off": rule is turned off
+  - 1 / "warn": breaking the rule will cause a warning
+  - 2 / "error": breaking the rule will cause an error
+
+- use a plugin for your specific environment
+  - e.g. eslint-plugin-node, eslint-plugin-react, ...
+
+- example config
+  - ```
+    {
+      "root": true,
+      "extends": [
+        "eslint:recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings"
+      ],
+      "parserOptions": {
+        "ecmaVersion": 7,
+        "sourceType": "module"
+      },
+      "env": {
+        "browser": true,
+        "node": true
+      },
+      "rules": {
+        "no-console": "warn",
+        "no-debugger": "warn"
+    }
+    ```
+    - root: true/false; project root (stop looking for other eslint config files in parent directories)
+    - extends: use presets and plugins
+    - parserOptions
+      - ecmaVersion: what version of JS should be used
+      - sourceType: how is the source organized (in this example: standard ES modules)
+    - env: what environments should be supported
+    - rules: settings of single rules (respectively overriding preset rules)
+
+### Automate file checking
+
+- watch your files with ESLint
+  - *either* with eslint-loader
+  - *or* with eslint-watch
+    - ```npm install eslint-watch --save-dev```
+    - new npm script
+      - ```"lint": "esw webpack src buildScripts"```
+        - esw = eslint-watch  followed by a file/directory list
+        - optional: pass the --color parameter at the end for more colors
+      - ```"lint:watch": "npm run lint -- --watch"```
+        - this will continuously watch your files
+        - add this to your start script
+          - ```"start": "npm-run-all --parallel security-check start-dev-server lint:watch"```
