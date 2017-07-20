@@ -418,6 +418,7 @@ Popular alternatives:
     - reporter: the style of the test report (here: progress)
     - buildScripts/testSetup.js: the file that will be executed before the tests will be running
     - 'src/\*\*/\*.test.js': expression to determine the location of the test files
+    - optional: pass the --color parameter at the end for more colors
 
 - make mocha known to ESLint
   - _.eslintrc.json_
@@ -476,5 +477,9 @@ Popular alternatives:
   ```
 
 ### Execute tests on saving files
-- new npm script: ```"test:watch": "npm run test -- --watch" ```
+- ```npm install watch-run --save-dev```
+- new npm script: ```"test:watch": "watch-run -p 'src/**' npm run test" ```
 - expand start script: ```"start": "npm-run-all --parallel security-check start-dev-server lint:watch test:watch"```
+
+Alternative, where only the test files itself will be watched:
+- new npm script: ```"test:watch": "npm run test -- --watch" ```
