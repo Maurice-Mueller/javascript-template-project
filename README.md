@@ -419,6 +419,18 @@ Popular alternatives:
     - buildScripts/testSetup.js: the file that will be executed before the tests will be running
     - 'src/\*\*/\*.test.js': expression to determine the location of the test files
 
+- make mocha known to ESLint
+  - _.eslintrc.json_
+    - ```
+      {
+        ...
+        "env": {
+          ...
+          "mocha": true
+        }
+      }
+      ```
+
 ### writing tests
 - create the test file in the same directory as the file to test
 - e.g. src/index.test.js
@@ -462,3 +474,7 @@ Popular alternatives:
     })
   })
   ```
+
+### Execute tests on saving files
+- new npm script: ```"test:watch": "npm run test -- --watch" ```
+- expand start script: ```"start": "npm-run-all --parallel security-check start-dev-server lint:watch test:watch"```

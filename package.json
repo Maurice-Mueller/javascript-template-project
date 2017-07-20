@@ -8,10 +8,11 @@
     "security-check": "nsp check",
     "lint": "esw webpack src buildScripts",
     "lint:watch": "npm run lint -- --watch",
-    "start": "npm-run-all --parallel security-check start-dev-server lint:watch",
+    "start": "npm-run-all --parallel security-check start-dev-server lint:watch test:watch",
     "start-dev-server": "babel-node buildScripts/srcServer.js",
     "prestart-dev-server": "babel-node buildScripts/startMessageSrcServer.js",
-    "test": "mocha --reporter progress buildScripts/testSetup.js 'src/**/*.test.js'"
+    "test": "mocha --reporter progress buildScripts/testSetup.js 'src/**/*.test.js'",
+    "test:watch": "npm run test -- --watch"
   },
   "repository": {
     "type": "git",

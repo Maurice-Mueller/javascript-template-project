@@ -33,7 +33,7 @@ describe('DOM index.html', () => {
 
 describe('some async test', () => {
   it('simple test', (done) => { //callback for calling when test is done
-    fs.readFile('./src/index.html', 'utf-8', file => { //async file read
+    fs.readFile('./src/index.html', 'utf-8', () => { //async file read
       expect(true).to.equal(true)
       done() //tell mocha the test is done
     })
