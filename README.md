@@ -686,7 +686,7 @@ Popular alternatives:
   - adapt the json-server script
     - ```"start-mock-api": "json-server --watch src/api/mockSchema.json --port 8090 --routes buildScripts/mock/jsonServerRoutes.json"```
 
-- depending on the environment choose either production URL or mock URL
+- automate choose either production URL or mock URL depending on the environment
   - create a new file ```src/api/baseUrl.js```
     - ```
       export default function getBaseUrl() {
@@ -717,3 +717,62 @@ Popular alternatives:
         console.log(error)
       }
       ```
+
+- add a delete request
+  - add to ```src/api/userApi.js```
+    - ```
+      export function deleteUser(id) {
+        return del(`test/rest/users/${id}`)
+      }
+
+      function del(url) {
+        const request = new Request(baseUrl + url, {method: 'DELETE'})
+        return fetch(request).then(onSuccess, onError)
+      }
+      ```
+  - adapt ```src/index.js``` to the following
+    - ```
+      import './index.css'
+      import { getUsers } from './api/userApi.js'
+      import { deleteUser } from './api/userApi.js'
+
+      debugger
+      console.log('This is my index.js file.')
+      console.log('API: ' + getUsers)
+
+      getUsers().then(result => {
+        let usersBody = ''
+
+        result.forEach(user => {
+          usersBody += `<tr>
+              <td>${user.id}</td>
+              <td>${user.name}</td>
+              <td>${user.email}</td>
+              <td><a href="#" data-id="${user.id}" class="deleteUser">delete</a></td>
+            </tr>`
+        })
+
+        global.document.getElementById('users').innerHTML = usersBody
+
+        const deleteLinks = global.document.getElementsByClassName('deleteUser')
+
+        Array.from(deleteLinks, link => {
+          link.onclick = function(event) {
+            const element = event.target
+            console.log(`clicked: ${element.attributes['data-id'].value}`)
+            event.preventDefault() //prevent changes to the URL
+            deleteUser(element.attributes['data-id'].value)
+            const row = element.parentNode.parentNode
+            row.parentNode.removeChild(row)
+          }
+        })
+      })
+      ```
+  - if you use custom routes also adapt ```buildScripts/mock/jsonServerRoutes.json```
+    - ```
+      {
+        "/test/rest/users": "/users",
+        "/test/rest/users/:id": "/users/:id"
+      }
+      ```
+  - now, json-server will delete the entries if you click on the delete link
