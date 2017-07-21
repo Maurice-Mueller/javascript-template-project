@@ -1,4 +1,5 @@
 /*eslint-disable no-console*/
+/*eslint-disable no-unused-vars*/
 import webpack from 'webpack'
 import webpackConfig from '../webpack/webpack.config.prod'
 import chalk from 'chalk'

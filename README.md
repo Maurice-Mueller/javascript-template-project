@@ -790,21 +790,112 @@ Popular alternatives:
       - ``` plugins: [ new webpack.optimize.UglifyJsPlugin() ]```
     - add a plugin for *removing duplicated packages*
       - ``` plugins: [ new webpack.optimize.DedupePlugin() ]```
-  - add a file for building the production bundle ```buildScripts/build.js```
+- add a file for building the production bundle ```buildScripts/build.js```
+  - ```
+    /*eslint-disable no-console*/
+    import webpack from 'webpack'
+    import webpackConfig from '../webpack/webpack.config.prod'
+    import chalk from 'chalk'
+
+    process.env.NODE_ENV = 'production'
+
+    webpack(webpackConfig).run((error, stats) => {
+      if(error) {
+        console.log(chalk.red(error))
+        return 1
+      }
+      console.log(chalk.green('build successful'))
+      return 0
+    })
+    ```
+- add npm scripts
+  - ```"build": "babel-node buildScripts/build.js"```
+  - ```"prebuild": "npm-run-all clean-dist test lint"```
+  - ```"clean-dist": "rm -rf ./dist && mkdir dist"```
+
+- handle html
+  - *either* copy html files to dist/
+  - *or* use dynamic generated html via node Bundler
+  - *or* use html-webpack-plugin
+
+### handle HTML with html-webpack-plugin
+
+- ```npm install html-webpack-plugin --save-dev```
+- add to ```webpack.config.prod.js``` and to ```webpack.config.dev.js```
+  - ```
+    import HtmlWebpackPlugin from 'html-webpack-plugin'
+    ...
+    export default {
+      ...
+      plugins: [
+        //create HTML files
+        new HtmlWebpackPlugin({
+          template: 'src/index.html',
+          inject: true
+        })
+      ],
+      ...
+    }
+    ```
+    - *NOTICE* the _template_ config needs a relativ path starting from the project directory (not relative to the webpack.config file)
+- remove script tag in ```index.html```
+  - ```<script src="bundle.js"></script>``` remove this line!
+  - the plugin will automatically add all needed scripts
+
+### test production bundle locally
+- copy ```buildScripts/srcServer.js``` to ```buildScripts/distServer.js```
+  - ```npm install compression --save-dev``` for compression
+  - adapt to the following (i.e. remove all webpack stuff and add static serving of the bundle)
     - ```
-      /*eslint-disable no-console*/
-      import webpack from 'webpack'
-      import webpackConfig from '../webpack/webpack.config.prod'
-      import chalk from 'chalk'
+      import express from 'express'
+      import path from 'path'
+      import open from 'open'
+      import compression from 'compression' //gzip
 
-      process.env.NODE_ENV = 'production'
+      const port = 8088
+      const app = express()
 
-      webpack(webpackConfig).run((error, stats) => {
+      app.use(compression()) //enable compression
+      app.use(express.static('dist'))
+
+      //any call to root (/)
+      app.get('/', function(request, result){
+        //__dirname holds the directory where the server is run in
+        result.sendFile(path.join(__dirname, '../dist/index.html'))
+      })
+
+      app.listen(port, function(error){
         if(error) {
-          console.log(chalk.red(error))
-          return 1
+          console.log(error)
+        } else {
+          open('http://localhost:' + port)
         }
-        console.log(chalk.green('build successful'))
-        return 0
+      })
+
+      app.get('/test/rest/users', function(request, result){
+        result.json([{"id": 1, "name": "Moe Pad", "profession": "developer", "email": "moe@example.com"},
+                     {"id": 2, "name": "Allan Karlsson", "profession": "blaster", "email": "allan@example.com"},
+                     {"id": 3, "name": "Moby Dick", "profession": "swimmer", "email": "moby@example.com"},
+                     {"id": 4, "name": "Andrew Wiggins", "profession": "general", "email": "andrew@example.com"},
+                   ])
       })
       ```
+  - add a start script to ```package.json```
+    - ```"start-dist-server": "babel-node buildScripts/distServer.js"```
+  - adapt ```src/api/baseUrl.js``` to use the real API also locally for the production build
+    - ```
+      export default function getBaseUrl() {
+        return getQueryStringParameterByName('useMockApi') ? 'http://localhost:8090/' : '/'
+      }
+
+      function getQueryStringParameterByName(name) {
+        var url = window.location.href
+        name = name.replace("/[[]]/g", "\\$&")
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)")
+        var results = regex.exec(url)
+        if(!results) return null
+        if(!results[2]) return ''
+        return decodeURIComponent(results[2].replace("/+/g", " "))
+      }
+      ```
+    - now you can call *localhost:8090/* for the production API and *localhost:8090/?useMockApi=true*  for the mock API
