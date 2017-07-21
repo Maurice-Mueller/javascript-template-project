@@ -23,3 +23,11 @@ app.listen(port, function(error){
     open('http://localhost:' + port)
   }
 })
+
+app.get('/test/rest/users', function(request, result){
+  result.json([{"id": 1, "name": "Moe Pad", "profession": "developer"},
+               {"id": 2, "name": "Allan Karlsson", "profession": "blaster"},
+               {"id": 3, "name": "Moby Dick", "profession": "swimmer"},
+               {"id": 4, "name": "Andrew Wiggins", "profession": "general"},
+             ])
+})

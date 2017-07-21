@@ -483,3 +483,113 @@ Popular alternatives:
 
 Alternative, where only the test files themselves will be watched:
 - new npm script: ```"test:watch": "npm run test -- --watch" ```
+
+## Get everything into your CI Server
+Popular alternatives:
+- Jenkins
+- Bamboo
+- Travis
+- Appveyor
+
+## HTTP Call Frameworks
+Popular alternatives:
+- for node
+  - http
+    - built-in; low-level
+  - request
+    - built-in; more high-level
+- for browsers
+  - XMLHttpRequest
+    - standard; every browser supports this; a lot of plumbing
+  - jQuery
+    - widespread
+  - fetch
+    - new standard from WHATWG (https://fetch.spec.whatwg.org/)
+    - full support of major browsers
+- both node and browser
+  - isomorphic-fetch
+    - fetch version for running on node as well
+  - xhr
+    - subset of XMLHttpRequest that runs on node as well
+  - SuperAgent
+    - full feature set
+  - Axios
+    - full feature set
+    - clean and promise-based API
+
+Recommendation:
+- ```request``` or ```fetch``` if the code is running either on node or in the browser
+- ```Axios```if the code is running in both the browser and on node
+- create a web API layer
+  - centralizing response and error handling
+  - single point to look at if HTTP calls fail
+  - reusing common stuff
+
+### Example for fetch
+- ```npm install whatwg-fetch --save```
+- add mock server response in ```srcServer.js```
+  - ```
+    app.get('/test/rest/users', function(request, result){
+      result.json([{"id": 1, "name": "Moe Pad", "profession": "developer"},
+                   {"id": 2, "name": "Allan Karlsson", "profession": "blaster"},
+                   {"id": 3, "name": "Moby Dick", "profession": "swimmer"},
+                   {"id": 4, "name": "Andrew Wiggins", "profession": "general"},
+                 ])
+    })
+    ```
+- implement the API layer: ```src/api/userApi.js```
+  - ```
+    import 'whatwg-fetch'
+
+    export function getUsers() {
+      return get('test/rest/users')
+    }
+
+    function get(url) {
+      return fetch(url).then(onSuccess, onError)
+    }
+
+    function onSuccess(response) {
+      return response.json()
+    }
+
+    function onError(error) {
+      console.log(error)
+    }
+    ```
+- add the following to your ```index.html```
+  - ```
+    <table>
+      <thead>
+        <th>
+          ID
+        </th>
+        <th>
+          Name
+        </th>
+        <th>
+          Profession
+        </th>
+      </thead>
+      <tbody id="users">
+      </tbody>
+    </table>
+    ```
+- adapt ```index.js```
+  - ```
+    import { getUsers } from './api/userApi.js'
+
+    getUsers().then(result => {
+      let usersBody = ''
+
+      result.forEach(user => {
+        usersBody += `<tr>
+            <td>${user.id}</td>
+            <td>${user.name}</td>
+            <td>${user.profession}</td>
+          </tr>`
+      })
+
+      global.document.getElementById('users').innerHTML = usersBody
+    })
+    ```
