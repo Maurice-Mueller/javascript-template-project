@@ -14,7 +14,8 @@
     "test": "mocha --reporter progress buildScripts/testSetup.js 'src/**/*.test.js' --color",
     "test:watch": "watch-run -p 'src/**' npm run test",
     "generate-mock-data": "babel-node buildScripts/mock/generateMockData",
-    "start-mock-api": "json-server --watch src/api/mockSchema.json --port 8090 --routes buildScripts/mock/jsonServerRoutes.json"
+    "start-mock-api": "json-server --watch src/api/mockSchema.json --port 8090 --routes buildScripts/mock/jsonServerRoutes.json",
+    "build": "babel-node buildScripts/build.js"
   },
   "repository": {
     "type": "git",
@@ -47,6 +48,7 @@
     "npm-run-all": "4.0.2",
     "open": "0.0.5",
     "style-loader": "0.18.2",
+    "uglifyjs-webpack-plugin": "0.4.6",
     "watch-run": "1.2.5",
     "webpack": "3.3.0",
     "webpack-dev-server": "2.5.1",

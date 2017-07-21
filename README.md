@@ -776,3 +776,35 @@ Popular alternatives:
       }
       ```
   - now, json-server will delete the entries if you click on the delete link
+
+## Production build settings
+- create a webpack config for the production build
+  - copy ```webpack/webpack.config.dev.js``` to ```webpack/webpack.config.prod.js```
+    - change source mapping
+      - from ```devTool: 'inline-source-map'``` to ```devTool: 'source-map'```
+    - change the output path
+      - from ```output: { path: path.resolve(__dirname, '../src')}``` to ```output: { path: path.resolve(__dirname, '../dist')}```
+    - add a plugin for *minification*
+      - ```npm install uglifyjs-webpack-plugin --save-dev```
+      - ```import webpack from 'webpack'```
+      - ``` plugins: [ new webpack.optimize.UglifyJsPlugin() ]```
+    - add a plugin for *removing duplicated packages*
+      - ``` plugins: [ new webpack.optimize.DedupePlugin() ]```
+  - add a file for building the production bundle ```buildScripts/build.js```
+    - ```
+      /*eslint-disable no-console*/
+      import webpack from 'webpack'
+      import webpackConfig from '../webpack/webpack.config.prod'
+      import chalk from 'chalk'
+
+      process.env.NODE_ENV = 'production'
+
+      webpack(webpackConfig).run((error, stats) => {
+        if(error) {
+          console.log(chalk.red(error))
+          return 1
+        }
+        console.log(chalk.green('build successful'))
+        return 0
+      })
+      ```
