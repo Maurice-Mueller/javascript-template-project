@@ -593,3 +593,127 @@ Recommendation:
       global.document.getElementById('users').innerHTML = usersBody
     })
     ```
+
+## Mocking HTTP calls
+Popular alternatives:
+- api-mock
+- JSON server
+  - works with static JSON files
+- JSON Schema faker
+  - dynamic data
+- custom server
+  - like express
+
+### example JSON Server with JSON Schema faker
+- helpful websites
+  - http://json-schema-faker.js.org/
+
+- data generators bundled with JSON Schema faker
+  - faker.js
+  - chance.js
+  - randexp.js
+
+- ```npm install json-server json-schema-faker faker --save-dev```
+- create a schema file; e.g. buildScripts/mock/mockDataSchema.js
+  - ```
+    export default {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "unique": true,
+                "minimum": 1
+              },
+              "name": {
+                "type": "string",
+                "faker": "name.firstName"
+              },
+              "email": {
+                "type": "string",
+                "faker": "internet.email"
+              }
+            },
+            required: ['id', 'name', 'email']
+          }
+        }
+      },
+      required: ['users']
+    }
+    ```
+- create a script for generating data; e.g. buildScripts/mock/generateMockData.js
+  - ```
+    import jsf from 'json-schema-faker'
+    import schema from './mockDataSchema'
+    import fs from 'fs'
+    import chalk from 'chalk'
+
+    jsf.extend('faker', function() {
+      return require('faker')
+    })
+
+    const json = JSON.stringify(jsf(schema))
+
+    fs.writeFile('./src/api/mockSchema.json', json, error => {
+      if(error) {
+        return console.log(chalk.red(error))
+      }
+      console.log(chalk.green("Mock data successfully generated."))
+    })
+    ```
+- add to scripts in package.json
+  - random data generation
+    - ```"generate-mock-data": "babel-node buildScripts/mock/generateMockData"```
+  - starting the json server and serving the random data
+    - ```"start-mock-api": "json-server --watch src/api/mockSchema.json --port 8090"```
+  - start mock api with each application start
+    - ```"start": "npm-run-all --parallel security-check start-dev-server lint:watch test:watch start-mock-api"```
+  - generating new random data before starting json-server
+    - ```"prestart-mock-api": "npm run generate-mock-data"```
+- to not use the auto generate routes of json-server follow these steps:
+  - create a file containing the routes; e.g. ```buildScripts/mock/jsonServerRoutes.json```
+    - ```
+      {
+        "/test/rest/users": "/users"
+      }
+      ```
+  - adapt the json-server script
+    - ```"start-mock-api": "json-server --watch src/api/mockSchema.json --port 8090 --routes buildScripts/mock/jsonServerRoutes.json"```
+
+- depending on the environment choose either production URL or mock URL
+  - create a new file ```src/api/baseUrl.js```
+    - ```
+      export default function getBaseUrl() {
+        const inDevelopment = window.location.hostname === 'localhost' //running on localhost?
+        return inDevelopment? 'http://localhost:8090/' : '/'
+      }
+      ```
+  - adapt ```src/api/userApi.js```
+    - ```
+      import 'whatwg-fetch'
+      import getBaseUrl from './baseUrl'
+
+      const baseUrl = getBaseUrl()
+
+      export function getUsers() {
+        return get('test/rest/users')
+      }
+
+      function get(url) {
+        return fetch(baseUrl + url).then(onSuccess, onError)
+      }
+
+      function onSuccess(response) {
+        return response.json()
+      }
+
+      function onError(error) {
+        console.log(error)
+      }
+      ```

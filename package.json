@@ -8,11 +8,13 @@
     "security-check": "nsp check",
     "lint": "esw webpack src buildScripts",
     "lint:watch": "npm run lint -- --watch",
-    "start": "npm-run-all --parallel security-check start-dev-server lint:watch test:watch",
+    "start": "npm-run-all --parallel security-check start-dev-server lint:watch test:watch start-mock-api",
     "start-dev-server": "babel-node buildScripts/srcServer.js",
     "prestart-dev-server": "babel-node buildScripts/startMessageSrcServer.js",
     "test": "mocha --reporter progress buildScripts/testSetup.js 'src/**/*.test.js' --color",
-    "test:watch": "watch-run -p 'src/**' npm run test"
+    "test:watch": "watch-run -p 'src/**' npm run test",
+    "generate-mock-data": "babel-node buildScripts/mock/generateMockData",
+    "start-mock-api": "json-server --watch src/api/mockSchema.json --port 8090 --routes buildScripts/mock/jsonServerRoutes.json"
   },
   "repository": {
     "type": "git",
@@ -36,7 +38,10 @@
     "eslint": "4.2.0",
     "eslint-watch": "3.1.2",
     "express": "4.15.3",
+    "faker": "4.1.0",
     "jsdom": "11.1.0",
+    "json-schema-faker": "0.5.0-rc10",
+    "json-server": "0.11.2",
     "localtunnel": "1.8.3",
     "mocha": "3.4.2",
     "npm-run-all": "4.0.2",
