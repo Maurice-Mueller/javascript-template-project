@@ -26,7 +26,7 @@ export default {
     //remove duplicated packages
     new webpack.optimize.DedupePlugin(),
     //Minification
-    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
     //create HTML files
     new HtmlWebpackPlugin({
       template: 'src/index.html',

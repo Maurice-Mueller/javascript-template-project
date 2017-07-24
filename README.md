@@ -796,7 +796,8 @@ Popular alternatives:
     - add a plugin for *minification*
       - ```npm install uglifyjs-webpack-plugin --save-dev```
       - ```import webpack from 'webpack'```
-      - ``` plugins: [ new webpack.optimize.UglifyJsPlugin() ]```
+      - ``` plugins: [ new webpack.optimize.UglifyJsPlugin({ sourceMap: true }) ]```
+        - sourceMap: true must be set; otherwise source maps will not be generated even if devtool is set accordingly
     - add a plugin for *removing duplicated packages*
       - ``` plugins: [ new webpack.optimize.DedupePlugin() ]```
 - add a file for building the production bundle ```buildScripts/build.js```
