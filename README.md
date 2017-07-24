@@ -855,7 +855,7 @@ Popular alternatives:
       const port = 8088
       const app = express()
 
-      app.use(compression()) //enable compression
+      app.use(compression({threshold : 512})) //enable compression; adapt threshold (in bytes) to your needs
       app.use(express.static('dist'))
 
       //any call to root (/)
@@ -882,6 +882,7 @@ Popular alternatives:
       ```
   - add a start script to ```package.json```
     - ```"start-dist-server": "babel-node buildScripts/distServer.js"```
+    - ```"prestart-dist-server": "npm run build"```
   - adapt ```src/api/baseUrl.js``` to use the real API also locally for the production build
     - ```
       export default function getBaseUrl() {

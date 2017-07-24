@@ -6,7 +6,7 @@ import compression from 'compression' //gzip
 const port = 8088
 const app = express()
 
-app.use(compression()) //enable compression
+app.use(compression({threshold : 512})) //enable compression; adapt threshold (in bytes) to your needs
 app.use(express.static('dist'))
 
 //any call to root (/)
