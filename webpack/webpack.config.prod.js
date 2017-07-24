@@ -42,7 +42,8 @@ export default {
         minifyCSS: true,
         minifyURLs: true
        },
-      inject: true
+      inject: true,
+      differentValues: "this is the value for production"
     })
   ],
   module: {

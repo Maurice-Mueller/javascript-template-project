@@ -1,6 +1,11 @@
 import './index.css'
 import { getUsers } from './api/userApi.js'
 import { deleteUser } from './api/userApi.js'
+import {JL} from 'jsnlog'
+
+JL("index.js").info("info log")
+JL("index.js").error("error log")
+JL().fatalException("exception log; second parameter is the exception", {})
 
 debugger
 console.log('This is my index.js file.')

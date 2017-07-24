@@ -16,7 +16,8 @@ export default {
     //create HTML files
     new HtmlWebpackPlugin({
       template: 'src/index.html',
-      inject: true
+      inject: true,
+      differentValues: "this is the value for development"
     })
   ],
   module: {

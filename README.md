@@ -1024,3 +1024,96 @@ Separate libraries etc. from your code.
       }
     }
     ```
+
+## Error Handling
+Popular alternatives:
+- TrackJS
+- Sentry
+- New Relic
+- Raygun
+- FancyTrack
+- jsnlog
+  - FOSS and actually working
+
+### Set up Error Handling with jsnlog
+- ```npm install jsnlog --save-dev```
+- add to ```vendor.js```
+  - ```import {JL} from 'jsnlog'```
+- use it e.g. in ```index.js```
+  - ```
+    import {JL} from 'jsnlog'
+
+    JL("index.js").info("info log")
+    JL("index.js").error("error log")
+    JL().fatalException("exception log; second parameter is the exception", {})
+    ```
+  - different log levels are available: TRACE, DEBUG, INFO, WARN, ERROR or FATAL.
+- standard log url is: */jsnlog.logger*
+- standard format is
+  - ```
+    {
+      "r":"",
+      "lg":[
+        {
+          "l":3000,
+          "m":"log message222",
+          "n":"index.js",
+          "t":1500900964950}
+      ]
+    }
+    ```
+    - l: log level; e.g. 3000 = info; 5000 = error
+    - m: message
+    - n: name of the logger (if any)
+    - t: timestamp
+- for more infos, look here: http://js.jsnlog.com/Documentation/GetStartedLogging
+
+## advanced HTML template topics
+
+### different values in development and production code
+- add variables to HtmlWebpackPlugin and assign different values in `webpack.config.dev.js` and `webpack.config.prod.js`
+  - e.g. add the variable *differentValues* in `webpack.config.dev.js`
+    - ```
+      {
+        ...
+        plugins: [
+          new HtmlWebpackPlugin({
+              ...
+              differentValues: "this is the value for development"
+            })
+        ],
+        ...
+      }
+      ```
+  - and add the same variable to `webpack.config.prod.js` with the value _this is the value for production_
+- use this variable like in the following
+  - add to `index.html`
+    - ```<h3><%=htmlWebpackPlugin.options.differentValues%></h3>```
+- more embeddesJS syntax
+  - ```
+     <% if (htmlWebpackPlugin.options.differentValues) { %>
+       [CODE THAT ONLY GETS INCLUDED IF htmlWebpackPlugin.options.differentValues IS DEFINED]
+     <% } %>
+    ```
+  - ```
+    <dl>
+      <%for (var i = 0; i < users.length; i++) {
+        var user = users[i]
+        var name = user.name
+        var age  = user.age %>
+        <dt><%= name %></dt>
+        <dd><%= age %></dd>
+      <%}-%>
+    </dl>
+    ```
+  - ```
+    <ul>
+      <% users.forEach(function(user, i, arr){ -%>
+        <li><%= user %></li>
+      <% }); -%>
+    </ul>
+    ```
+- resources on the embeddedJS syntax
+  - https://github.com/mde/ejs/blob/master/docs/syntax.md
+  - http://ejs.co/#docs / https://github.com/mde/ejs
+  - http://www.embeddedjs.com/getting_started.html
