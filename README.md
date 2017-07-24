@@ -927,3 +927,41 @@ Popular alternatives:
       ]
     }
     ```
+
+### Bundling
+
+Separate libraries etc. from your code.
+
+- adapt ```webpack.config.prod.js```
+  - adapt the entry point section
+    - ```
+      entry: {
+        main: path.resolve(__dirname, '../src/index'),
+        vendor: path.resolve(__dirname, '../src/vendor')
+      }
+      ```
+  - adapt the plugins section
+    - ```
+      plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+          name: 'vendor'
+        }),
+        ...
+      ]
+      ```
+      - this will actually split the code in different files (instead of creating a vendor.js file and bundle this with the main bundle)
+  - adapt the output section
+    - ```
+      output: {
+        path: path.resolve(__dirname, '../src'),
+        publicPath: '/',
+        filename: '[name].js'
+      }
+      ```
+      - a placeholder (_[name]_) is needed, because webpack needs to generate multiple bundles/chunks (in this example: _main_ and _vendor_)
+- add ```vendor.js``` to your src directory and all libraries you depend on
+  - ```
+    /* eslint-disable no-unused-vars */
+    import fetch from 'whatwg-fetch'
+    ```
+  - if you need more fine granular splitting: use this pattern to add more splitted stuff

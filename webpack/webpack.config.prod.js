@@ -4,16 +4,20 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 export default {
   devtool: 'source-map',
-  entry: [
-    path.resolve(__dirname, '../src/index')
-  ],
+  entry: {
+    main: path.resolve(__dirname, '../src/index'),
+    vendor: path.resolve(__dirname, '../src/vendor')
+  },
   target: 'web',
   output: {
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor'
+    }),
     //remove duplicated packages
     new webpack.optimize.DedupePlugin(),
     //Minification
