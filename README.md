@@ -1117,3 +1117,31 @@ Popular alternatives:
   - https://github.com/mde/ejs/blob/master/docs/syntax.md
   - http://ejs.co/#docs / https://github.com/mde/ejs
   - http://www.embeddedjs.com/getting_started.html
+
+
+## Preperation for production deployment
+- of course, separate API and UI
+- enable CORS inside expressJS server
+  - ```npm install cors --save-dev```
+  - adapt distServer.js
+    - ```
+      import cors from 'cors'
+      ...
+      app.use(cors())
+      ```
+- add a npm script for deploying
+
+- alternatives for hosting
+  - heroku
+  - surge
+  - AWS
+  - ...
+
+## Update the JavaScript template project
+Popular alternatives:
+- Yeoman
+- github / git
+  - host on github
+  - fork for each project
+  - pull changes from master
+- npm

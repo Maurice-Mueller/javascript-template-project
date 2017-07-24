@@ -2,12 +2,14 @@ import express from 'express'
 import path from 'path'
 import open from 'open'
 import compression from 'compression' //gzip
+import cors from 'cors'
 
 const port = 8088
 const app = express()
 
 app.use(compression({threshold : 512})) //enable compression; adapt threshold (in bytes) to your needs
 app.use(express.static('dist'))
+app.use(cors())
 
 //any call to root (/)
 app.get('/', function(request, result){
