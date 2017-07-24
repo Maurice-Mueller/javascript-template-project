@@ -212,10 +212,19 @@ Popular alternatives:
       },
       plugins: [],
       module: {
-        loaders: [
-          {test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader']},
-          {test: /\.css$/, loaders: ['style-loader','css-loader']}
-        ]
+        rules: [
+          {
+            test: /\.css$/,
+            use: ['style-loader', 'css-loader']
+          },
+          {
+            test: /\.js$/,
+            exclude: /(node_modules|bower_components)/,
+            use: {
+              loader: 'babel-loader'
+            }
+         }
+       ]
       }
     }
     ```
@@ -965,3 +974,53 @@ Separate libraries etc. from your code.
     import fetch from 'whatwg-fetch'
     ```
   - if you need more fine granular splitting: use this pattern to add more splitted stuff
+
+#### Hashing the chunk
+- enable hashing the chunks
+  - will force updates if something changes
+  - if nothing changes the same file will not be download multiple times
+  - ```npm install webpack-md5-hash --save-dev```
+  - adapt ```webpack.config.prod.js```
+    - ```
+      import WebpackMd5Hash from 'webpack-md5-hash'
+      ...
+      {
+        ...
+        output: {
+          ...
+          filename: '[name].[chunkhash].js'
+        },
+        plugins: [
+          new WebpackMd5Hash(),
+        ]
+      }
+      ```
+
+#### Extracting CSS to a separate bundle/chunk file
+- ```npm install extract-text-webpack-plugin --save-dev```
+- adapt ```webpack.conf.prod.js```
+  - ```
+    import ExtractTextPlugin from 'extract-text-webpack-plugin'
+    ...
+    {
+      ...
+      plugins: [
+        //generate a separate css file for bundling css
+        new ExtractTextPlugin('[name].[contenthash].css'),
+        ...
+      ],
+      ...
+      module: {
+        rules: [
+         {
+           test: /\.css$/,
+           use: ExtractTextPlugin.extract({
+             fallback: "style-loader",
+             use: "css-loader"
+           })
+         },
+         ...
+       ]
+      }
+    }
+    ```
