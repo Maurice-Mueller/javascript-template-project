@@ -900,3 +900,30 @@ Popular alternatives:
       }
       ```
     - now you can call *localhost:8090/* for the production API and *localhost:8090/?useMockApi=true*  for the mock API
+
+### Minification (using html-webpack-plugin)
+
+- add the following to ```webpack.config.prod.js````
+  - ```
+    {
+      ...
+      plugins: [
+        new HtmlWebpackPlugin({
+            template: 'src/index.html',
+            minify: {
+              removeComments: true,
+              collapseWhitespace: true,
+              removeRedundantAttributes: true,
+              useShortDoctype: true,
+              removeEmptyAttributes: true,
+              removeStyleLinkTypeAttributes: true,
+              keepClosingSlash: true,
+              minifyJS: true,
+              minifyCSS: true,
+              minifyURLs: true
+            },
+            inject: true
+          })
+      ]
+    }
+    ```
