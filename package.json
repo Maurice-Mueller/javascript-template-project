@@ -4,6 +4,7 @@
   "description": "- `npm init` / `npm init -f` -",
   "main": "src/main.ts",
   "scripts": {
+    "dev": "ts-node config/scripts/startDevServer.ts"
   },
   "repository": {
     "type": "git",
@@ -14,5 +15,19 @@
   "bugs": {
     "url": "https://github.com/MoePad/javascript-template-project/issues"
   },
-  "homepage": "https://github.com/MoePad/javascript-template-project#readme"
+  "homepage": "https://github.com/MoePad/javascript-template-project#readme",
+  "devDependencies": {
+    "@types/vue": "^2.0.0",
+    "express": "^4.15.3",
+    "html-webpack-plugin": "^2.29.0",
+    "open": "0.0.5",
+    "path": "^0.12.7",
+    "ts-loader": "^2.3.1",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.4.2",
+    "vue": "^2.4.2",
+    "vue-loader": "^13.0.2",
+    "webpack": "^3.4.1",
+    "webpack-middleware": "^1.5.1"
+  }
 }
