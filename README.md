@@ -40,7 +40,6 @@ Popular alternatives for webpack TS loaders:
 - adapt npm scripts
   - add `"tslint": "tslint 'src/**/*ts' -c tslint.json"`
   - adapt start: `"start": "npm-run-all --parallel security-check start-dev-server eslint:watch tslint test:watch start-mock-api"`
-  - adapt test: `"test": "mocha --reporter progress buildScripts/testSetup.js 'src/**/*.test.ts' --color"`
 - rename all source `*.js` files to `*.ts`
   - e.g. `index.js` to `index.ts`
 - adapt `webpack.config.*.js`
@@ -58,6 +57,8 @@ Popular alternatives for webpack TS loaders:
       }
       ```
 - use `document` instead of `global.document` in `index.ts`
+- `npm install @types/node --save-dev`
+  - to get all the modules nodeJS ships with
 - fix errors in your source ;)
 
 ### enable decorators
@@ -96,7 +97,7 @@ Popular alternatives for webpack TS loaders:
     ```
 
 ### set up testing
-- `npm install @types/mocha @types/chai --save-dev`
+- `npm install @types/mocha @types/chai @types/assert --save-dev`
   - type definitions for mocha and chai
 - `npm install mocha-typescript --save-dev`
 - adapt `package.json` to invoke typescript compiler before running mocha tests
@@ -109,6 +110,42 @@ Popular alternatives for webpack TS loaders:
         }
       }
       ```
+- adapt `testSetup.js`
+  - ```
+    require('ts-node').register({
+        "compileOnSave": false,
+        "compilerOptions": {
+            "allowSyntheticDefaultImports": true,
+            "lib": [
+                "dom",
+                "es2015",
+                "es2016"
+            ],
+            "jsx": "preserve",
+            "target": "es2016",
+            "module": "commonjs",
+            "moduleResolution": "node",
+            "noImplicitAny": false,
+            "noUnusedLocals": true,
+            "noUnusedParameters": true,
+            "removeComments": false,
+            "preserveConstEnums": true,
+            "sourceMap": true,
+            "skipLibCheck": true,
+            "experimentalDecorators": true
+        },
+        "exclude": [
+          "node_modules"
+        ],
+        "include": [
+            "./src/**/*"
+        ]
+    })
+    require('babel-register')() //register babel for transpiling before running tests
+
+    require.extensions['.css'] = function(){} //disable webpack features, that mocha doesn't understand (i.e. importing css)
+    ```
+    - it is *IMPORTANT* to use commonjs modules (because node does not understand other module types)
 
 ### change from eslint to tslint
 - `npm install tslint --save-dev`

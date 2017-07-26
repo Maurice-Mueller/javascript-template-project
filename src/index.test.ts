@@ -1,10 +1,12 @@
 import { expect } from 'chai'
-import assert from 'assert'
-import jsdom from 'jsdom'
-console.log('jsdom: ' + jsdom)
-const { JSDOM } = jsdom //get the constructor
-import fs from 'fs' //comes with nodeJS -> FileSystem access
+import * as assert from 'assert'
+import * as jsdom from 'jsdom'
+const {JSDOM} = jsdom
+import * as fs from 'fs' //comes with nodeJS -> FileSystem access
 import { suite, test, timeout } from 'mocha-typescript'
+
+console.log('assert: '+ assert)
+console.log('fs: '+ fs)
 
 @suite
 class SimpleTest {
@@ -54,7 +56,7 @@ class AsyncTest {
 
   @test(timeout(1000))
   timeoutTest(done) {
-    done
+    done()
   }
 }
 
