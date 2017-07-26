@@ -7,8 +7,8 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin'
 export default {
   devtool: 'source-map',
   entry: {
-    main: path.resolve(__dirname, '../src/index'),
-    vendor: path.resolve(__dirname, '../src/vendor')
+    main: path.resolve(__dirname, '../src/index.ts'),
+    vendor: path.resolve(__dirname, '../src/vendor.ts')
   },
   target: 'web',
   output: {
@@ -46,20 +46,31 @@ export default {
       differentValues: "this is the value for production"
     })
   ],
+  resolve: {
+      extensions: [".ts", ".tsx", ".js", ".json", ".css"]
+  },
   module: {
     rules: [
       {
         test: /\.css$/,
+        exclude: /(node_modules|bower_components)/,
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
           use: "css-loader"
         })
       },
       {
-        test: /\.js$/,
+        test: /\.jsx$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader'
+        }
+      },
+      {
+        test: /\.tsx?$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'ts-loader'
         }
       }
     ]

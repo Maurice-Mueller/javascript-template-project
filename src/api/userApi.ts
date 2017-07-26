@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import getBaseUrl from './baseUrl'
+import {getBaseUrl} from './baseUrl'
 
 const baseUrl = getBaseUrl()
 
@@ -7,15 +7,15 @@ export function getUsers() {
   return get('test/rest/users')
 }
 
-function get(url) {
+function get(url: string) {
   return fetch(baseUrl + url).then(onSuccess, onError)
 }
 
-export function deleteUser(id) {
+export function deleteUser(id: number) {
   return del(`test/rest/users/${id}`)
 }
 
-function del(url) {
+function del(url: string) {
   const request = new Request(baseUrl + url, {method: 'DELETE'})
   return fetch(request).then(onSuccess, onError)
 }
