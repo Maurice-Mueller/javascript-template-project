@@ -1,4 +1,0 @@
-{
-  "/test/rest/users": "/users",
-  "/test/rest/users/:id": "/users/:id"
-}
