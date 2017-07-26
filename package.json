@@ -1,0 +1,18 @@
+{
+  "name": "vuejs-typescript",
+  "version": "1.0.0",
+  "description": "- `npm init` / `npm init -f` -",
+  "main": "src/main.ts",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MoePad/javascript-template-project.git"
+  },
+  "author": "Moe Pad",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MoePad/javascript-template-project/issues"
+  },
+  "homepage": "https://github.com/MoePad/javascript-template-project#readme"
+}
