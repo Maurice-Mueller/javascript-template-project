@@ -1,26 +1,15 @@
-import * as path from 'path'
 import * as HtmlWebpackPlugin from 'html-webpack-plugin'
-
-declare var __dirname
-
-function resolve (dir) {
-  return path.join(__dirname, '../..', dir)
-}
+import commons from '../commons'
 
 export default {
   entry: {
-    app: resolve('src/main.ts')
-  },
-  devtool: 'inline-source-map',
-  output: {
-    path: resolve('src'),
-    filename: 'bundle.js'
+    app: commons.resolve('src/main.ts')
   },
   resolve: {
     extensions: ['.js', '.ts', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src')
+      '@': commons.resolve('src')
     }
   },
   plugins: [
