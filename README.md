@@ -2,9 +2,9 @@
 
 - `npm init` / `npm init -f`
 - install vue and typescript stuff
-  - `npm install typescript vue vue-loader ts-loader @types/vue --save-dev`
+  - `npm install typescript vue vue-loader ts-loader @types/vue vue-template-compiler vue-class-component --save-dev`
 - install webpack stuff
-  - `npm install webpack html-webpack-plugin webpack-middleware webpack-merge --save-dev`
+  - `npm install webpack html-webpack-plugin webpack-middleware webpack-merge css-loader --save-dev`
 - install express and other dev relevant stuff
   - `npm install express path ts-node open --save-dev`
 - create `webpack.base.conf.js` in `config/scripts/webpack`
@@ -32,6 +32,7 @@
         rules: [
           {
             test: /\.ts$/,
+            include: [commons.resolve('src')],
             exclude: /node_modules|vue\/src/,
             loader: 'ts-loader',
             options: {
@@ -40,6 +41,8 @@
           },
           {
             test: /\.vue$/,
+            include: [commons.resolve('src')],
+            exclude: /node_modules|vue\/src/,
             loader: 'vue-loader',
             options: {
               esModule: true
@@ -158,3 +161,58 @@
 
 
 ## Set up vue
+- declare `vue` inside `vue-setup.d.ts` inside `src` folder
+  - ```
+    declare module "*.vue" {
+      import Vue from 'vue'
+      export default Vue
+    }
+    ```
+- create `App.vue` as the entrance hook for Vue.js
+  - ```
+    <template>
+    <div>
+      <h1>My new app: {{message}}</h1>
+      <p>prop: {{propMessage}}</p>
+    </div>
+    </template>
+
+    <script lang='ts'>
+    import Vue from 'vue'
+    import Component from 'vue-class-component'
+
+    @Component({
+      props: {
+        propMessage: String
+      }
+    })
+    export default class App extends Vue {
+    message: string = 'Hello!'
+    }
+    </script>
+
+    <style>
+      h1 {
+      color: red
+      }
+    </style>
+    ```
+- adapt `main.ts` to use the hook of `App.vue`
+  - ```
+    import Vue from 'vue'
+    import App from './App.vue'
+
+    new Vue({
+      el: '#app',
+      render: h => h(App, {
+        props: { propMessage: 'World' }
+      })
+    })
+    ```
+- set up the hook inside `index.html`
+  - ```
+    <body>
+      ...
+      <div id="app"></div>
+    </body>
+    ```

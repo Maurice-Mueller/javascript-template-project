@@ -21,7 +21,7 @@ export default {
     rules: [
       {
         test: /\.ts$/,
-        exclude: /node_modules|vue\/src/,
+        include: [commons.resolve('src')],
         loader: 'ts-loader',
         options: {
           appendTsSuffixTo: [/\.vue$/]
@@ -29,6 +29,7 @@ export default {
       },
       {
         test: /\.vue$/,
+        include: [commons.resolve('src')],
         loader: 'vue-loader',
         options: {
           esModule: true

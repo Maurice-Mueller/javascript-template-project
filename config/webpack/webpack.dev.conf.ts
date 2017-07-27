@@ -10,6 +10,4 @@ const devConfig = merge(baseConfig, {
   }
 })
 
-console.log('help: ' + devConfig.entry.app)
-
 export default devConfig
