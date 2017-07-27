@@ -9,7 +9,7 @@ function resolve (dir) {
 
 export default {
   entry: {
-    app: resolve('src/index')
+    app: resolve('src/main.ts')
   },
   devtool: 'inline-source-map',
   output: {
