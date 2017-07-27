@@ -122,4 +122,4 @@
       }
     }
     ```
-- run `npm start dev`
+- run `npm run dev`
