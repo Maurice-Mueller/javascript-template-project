@@ -12,7 +12,7 @@ const compiler = webpack(config)
 app.use((webpackMiddleware)(compiler, {noInfo: true, publicPath: '/'}))
 
 //any call to root (/)
-app.get('/', function(request, result){
+app.get('/', function(_request, result){
   result.sendFile(commons.resolve('src/index.html'))
 })
 

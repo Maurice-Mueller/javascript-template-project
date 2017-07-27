@@ -61,6 +61,38 @@
 
     export default {resolve}
     ```
+- create `tsconfig.json` in project root
+  - ```
+    {
+        "compileOnSave": false,
+        "compilerOptions": {
+            "allowSyntheticDefaultImports": true,
+            "lib": [
+                "dom",
+                "es2015",
+                "es2016"
+            ],
+            "jsx": "preserve",
+            "target": "es2016",
+            "module": "commonjs",
+            "moduleResolution": "node",
+            "noImplicitAny": false,
+            "noUnusedLocals": true,
+            "noUnusedParameters": true,
+            "removeComments": false,
+            "preserveConstEnums": true,
+            "sourceMap": true,
+            "skipLibCheck": true,
+            "experimentalDecorators": true
+        },
+        "exclude": [
+          "node_modules"
+        ],
+        "include": [
+            "./src/**/*"
+        ]
+    }
+    ```
 
 ## Set up dev server
 - create `webpack.dev.conf.ts` in `config/webpack`
@@ -123,3 +155,6 @@
     }
     ```
 - run `npm run dev`
+
+
+## Set up vue
