@@ -285,6 +285,7 @@
     })
 
     //enable CSS extracting from vue single files
+    //i.e. set extractCSS to true in vue loader of base config
     devConfig.module.rules[1].options.extractCSS = true
 
     export default devConfig
