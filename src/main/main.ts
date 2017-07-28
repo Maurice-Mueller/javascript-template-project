@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import App from '@/App.vue'
 
-new Vue({
+const vm = new Vue({
   el: '#app',
   render: h => h(App, {
-    props: { propMessage: 'World' }
+    props: {
+      propMessage: 'World'
+    }
   })
 })
+
+export {vm}

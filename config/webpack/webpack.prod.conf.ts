@@ -6,7 +6,7 @@ import * as HtmlWebpackPlugin from 'html-webpack-plugin'
 import * as ExtractTextPlugin from 'extract-text-webpack-plugin'
 import * as UglifyJS from 'uglifyjs-webpack-plugin'
 
-const devConfig = merge(baseConfig, {
+const devConfig: any = merge(baseConfig, {
   devtool: 'source-map',
   output: {
     path: commons.resolve('dist'),
@@ -46,8 +46,8 @@ const devConfig = merge(baseConfig, {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader"
+          fallback: 'style-loader',
+          use: 'css-loader'
         })
       }
     ]

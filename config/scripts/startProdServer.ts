@@ -9,11 +9,11 @@ app.use(compression({threshold : 512})) //enable compression; adapt threshold (i
 app.use(express.static('dist'))
 
 //any call to root (/)
-app.get('/', function(_request, result){
+app.get('/', (_request: any, result: any) => {
   result.sendFile(commons.resolve('/dist/index.html'))
 })
 
-app.listen(port, function(error){
+app.listen(port, (error: any) => {
   if(error) {
     console.log(error)
   } else {

@@ -11,7 +11,7 @@
       "target": "es2016",
       "module": "commonjs",
       "moduleResolution": "node",
-      "noImplicitAny": false,
+      "noImplicitAny": true,
       "noUnusedLocals": true,
       "noUnusedParameters": true,
       "removeComments": false,
@@ -24,6 +24,7 @@
     "node_modules"
   ],
   "include": [
-      "./src/**/*"
+      "./src/**/*",
+      "./config/commons.d.ts"
   ]
 }

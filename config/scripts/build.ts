@@ -4,15 +4,15 @@ import * as chalk from 'chalk'
 
 webpack(webpackConfig).run((error, stats) => {
   if(error) {
-    console.log(chalk.red(error))
+    console.log(chalk.red(error.toString()))
     return 1
   }
   console.log('Stats: ' + stats.toString({
-    colors: true,
-    modules: false,
     children: false,
+    chunkModules: false,
     chunks: false,
-    chunkModules: false
+    colors: true,
+    modules: false
   }))
   console.log(chalk.green('build successful'))
   return 0

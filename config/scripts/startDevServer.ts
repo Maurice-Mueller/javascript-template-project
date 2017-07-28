@@ -11,11 +11,11 @@ const compiler = webpack(config)
 app.use((webpackMiddleware)(compiler, {noInfo: true, publicPath: '/'}))
 
 //any call to root (/)
-app.get('/', function(_request, result){
+app.get('/', (_request: any, result: any) => {
   result.sendFile(commons.resolve('src/main/index.html'))
 })
 
-app.listen(port, function(error){
+app.listen(port, (error: any) => {
   if(error) {
     console.log(error)
   } else {

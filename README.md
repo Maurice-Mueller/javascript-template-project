@@ -4,9 +4,9 @@
 - install vue and typescript stuff
   - `npm install typescript vue vue-loader ts-loader @types/vue vue-template-compiler vue-class-component --save-dev`
 - install webpack stuff
-  - `npm install webpack html-webpack-plugin webpack-middleware webpack-merge css-loader extract-text-webpack-plugin --save-dev`
+  - `npm install webpack html-webpack-plugin webpack-middleware webpack-merge css-loader extract-text-webpack-plugin @types/webpack @types/webpack-merge @types/html-webpack-plugin @types/extract-text-webpack-plugin --save-dev`
 - install express and other dev relevant stuff
-  - `npm install express path ts-node open chalk --save-dev`
+  - `npm install express @types/express path ts-node open @types/open chalk @types/chalk --save-dev`
 - create `webpack.base.conf.js` in `config/scripts/webpack`
   - ```
     import * as HtmlWebpackPlugin from 'html-webpack-plugin'
@@ -218,7 +218,7 @@
 
 - `npm install uglifyjs-webpack-plugin@1.0.0-beta.1 --save-dev`
   - plugin with `uglify-es` as a backend is needed (currently - i.e. 2017/07/28 - only available in beta release)
-- `npm install compression --save-dev`
+- `npm install compression @types/compression --save-dev`
   - for compressed file serving in prod server
 - create `webpack.prod.conf.ts` inside `config/webpack`
   - ```
