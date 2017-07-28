@@ -54,6 +54,7 @@
     ```
 - create `commons.ts` in `config` (for extracting common logic in config files)
   - ```
+    import * as open from 'open'
     import * as path from 'path'
 
     declare var __dirname
@@ -62,7 +63,7 @@
       return path.join(__dirname, '..', dir)
     }
 
-    export default {resolve}
+    export default {resolve, open}
     ```
 - create `tsconfig.json` in project root
   - ```
@@ -119,31 +120,27 @@
 - create `startDevServer.ts` in `config/scripts`
   - ```
     import * as express from 'express'
-    import * as path from 'path'
-    import * as open from 'open'
     import * as webpack from 'webpack'
-    import config from '../webpack/webpack.base.conf'
+    import config from '../webpack/webpack.dev.conf'
     import * as webpackMiddleware from 'webpack-middleware'
+    import commons from '../commons'
 
     const port = 8088
     const app = express()
     const compiler = webpack(config)
 
-    declare var __dirname
-
     app.use((webpackMiddleware)(compiler, {noInfo: true, publicPath: '/'}))
 
     //any call to root (/)
-    app.get('/', function(request, result){
-      //__dirname holds the directory where the server is run in
-      result.sendFile(path.join(__dirname, '../src/index.html'))
+    app.get('/', function(_request, result){
+      result.sendFile(commons.resolve('src/index.html'))
     })
 
     app.listen(port, function(error){
       if(error) {
         console.log(error)
       } else {
-        open('http://localhost:' + port)
+        commons.open('http://localhost:' + port)
       }
     })
     ```
@@ -221,6 +218,8 @@
 
 - `npm install uglifyjs-webpack-plugin@1.0.0-beta.1 --save-dev`
   - plugin with `uglify-es` as a backend is needed (currently - i.e. 2017/07/28 - only available in beta release)
+- `npm install compression --save-dev`
+  - for compressed file serving in prod server
 - create `webpack.prod.conf.ts` inside `config/webpack`
   - ```
     import * as merge from 'webpack-merge'
@@ -311,4 +310,38 @@
       console.log(chalk.green('build successful'))
       return 0
     })
+    ```
+  - create a start script `startProdServer.ts` in `config/scripts/`
+    - ```
+      import commons from '../commons'
+      import * as express from 'express'
+      import * as compression from 'compression' //gzip
+
+      const port = 8088
+      const app = express()
+
+      app.use(compression({threshold : 512})) //enable compression; adapt threshold (in bytes) to your needs
+      app.use(express.static('dist'))
+
+      //any call to root (/)
+      app.get('/', function(_request, result){
+        result.sendFile(commons.resolve('/dist/index.html'))
+      })
+
+      app.listen(port, function(error){
+        if(error) {
+          console.log(error)
+        } else {
+          commons.open('http://localhost:' + port)
+        }
+      })
+      ```
+- call this start script in `package.json`
+  - ```
+    {
+      "scripts": {
+        ...
+        "prod": "npm run build && ts-node config/scripts/startProdServer.ts"
+      }
+    }
     ```

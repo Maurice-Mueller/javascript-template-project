@@ -6,7 +6,8 @@
   "scripts": {
     "clean-build": "rm -rf dist/",
     "build": "npm run clean-build && ts-node config/scripts/build.ts",
-    "dev": "ts-node config/scripts/startDevServer.ts"
+    "dev": "ts-node config/scripts/startDevServer.ts",
+    "prod": "npm run build && ts-node config/scripts/startProdServer.ts"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   "devDependencies": {
     "@types/vue": "^2.0.0",
     "chalk": "^2.0.1",
+    "compression": "^1.7.0",
     "css-loader": "^0.28.4",
     "express": "^4.15.3",
     "html-webpack-plugin": "^2.29.0",

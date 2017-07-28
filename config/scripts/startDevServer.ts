@@ -1,5 +1,4 @@
 import * as express from 'express'
-import * as open from 'open'
 import * as webpack from 'webpack'
 import config from '../webpack/webpack.dev.conf'
 import * as webpackMiddleware from 'webpack-middleware'
@@ -20,6 +19,6 @@ app.listen(port, function(error){
   if(error) {
     console.log(error)
   } else {
-    open('http://localhost:' + port)
+    commons.open('http://localhost:' + port)
   }
 })
