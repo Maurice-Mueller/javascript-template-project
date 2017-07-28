@@ -3,17 +3,18 @@ import commons from '../commons'
 
 export default {
   entry: {
-    app: commons.resolve('src/main.ts')
+    app: commons.resolve('src/main/main.ts')
   },
   resolve: {
     extensions: ['.js', '.ts', '.vue', '.json'],
     alias: {
-      '@': commons.resolve('src')
+      '@': commons.resolve('src/main'),
+      '$$': commons.resolve('src/test')
     }
   },
   plugins: [
     new HtmlWebpackPlugin({
-       template: 'src/index.html',
+       template: 'src/main/index.html',
        inject: true
     })
   ],

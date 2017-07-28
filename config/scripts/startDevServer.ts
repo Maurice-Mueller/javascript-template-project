@@ -12,7 +12,7 @@ app.use((webpackMiddleware)(compiler, {noInfo: true, publicPath: '/'}))
 
 //any call to root (/)
 app.get('/', function(_request, result){
-  result.sendFile(commons.resolve('src/index.html'))
+  result.sendFile(commons.resolve('src/main/index.html'))
 })
 
 app.listen(port, function(error){

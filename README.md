@@ -4,7 +4,7 @@
 - install vue and typescript stuff
   - `npm install typescript vue vue-loader ts-loader @types/vue vue-template-compiler vue-class-component --save-dev`
 - install webpack stuff
-  - `npm install webpack html-webpack-plugin webpack-middleware webpack-merge css-loader --save-dev`
+  - `npm install webpack html-webpack-plugin webpack-middleware webpack-merge css-loader extract-text-webpack-plugin --save-dev`
 - install express and other dev relevant stuff
   - `npm install express path ts-node open chalk --save-dev`
 - create `webpack.base.conf.js` in `config/scripts/webpack`
@@ -14,7 +14,7 @@
 
     export default {
       entry: {
-        app: commons.resolve('src/main.ts')
+        app: commons.resolve('src/main/main.ts')
       },
       resolve: {
         extensions: ['.js', '.ts', '.vue', '.json'],
@@ -24,7 +24,7 @@
       },
       plugins: [
         new HtmlWebpackPlugin({
-           template: 'src/index.html',
+           template: 'src/main/index.html',
            inject: true
         })
       ],
@@ -133,7 +133,7 @@
 
     //any call to root (/)
     app.get('/', function(_request, result){
-      result.sendFile(commons.resolve('src/index.html'))
+      result.sendFile(commons.resolve('src/main/index.html'))
     })
 
     app.listen(port, function(error){
@@ -144,7 +144,7 @@
       }
     })
     ```
-- create `src/index.html` and `src/main.ts` with basic html / ts stuff
+- create `src/main/index.html` and `src/main/main.ts` with basic html / ts stuff
 - create a start script in `package.json`
   - ```
     {
@@ -246,15 +246,10 @@
         //generate a separate css file for bundling css
         new ExtractTextPlugin('[name].[contenthash].css'),
         new UglifyJS({
-          sourceMap: true,
-          ie8: false,
-          ecma: 8,
-          compress: {
-            warnings: false
-          }
+          sourceMap: true
         }),
         new HtmlWebpackPlugin({
-          template: 'src/index.html',
+          template: 'src/main/index.html',
           minify: {
             removeComments: true,
             collapseWhitespace: true,
@@ -345,3 +340,31 @@
       }
     }
     ```
+
+
+## Set up testing
+
+- `npm install mocha @types/mocha chai @types/chai jsdom @types/jsdom mocha-typescript --save-dev`
+  - using [mocha](https://mochajs.org/), [chai](http://chaijs.com/) and [jsdom](https://github.com/tmpvar/jsdom)
+- add `webpack.test.conf.ts` in `config/webpack`
+  - ```
+    import * as merge from 'webpack-merge'
+    import baseConfig from './webpack.base.conf'
+    import commons from '../commons'
+
+    baseConfig.entry = undefined
+    baseConfig.plugins = undefined
+
+    const devConfig = merge(baseConfig, {
+      devtool: 'inline-source-map',
+      output: {
+        path: commons.resolve('src/main'),
+        filename: 'bundle.js'
+      }
+    })
+
+    export default devConfig
+    ```
+- add npm script for executing tests
+  - `mocha-webpack --reporter progress --require ts-node/register --webpack-config config/webpack/webpack.test.conf.ts src/test/**/*.ts`
+- see test examples inside `src/test`

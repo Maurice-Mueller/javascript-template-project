@@ -22,15 +22,10 @@ const devConfig = merge(baseConfig, {
     //generate a separate css file for bundling css
     new ExtractTextPlugin('[name].[contenthash].css'),
     new UglifyJS({
-      sourceMap: true,
-      ie8: false,
-      ecma: 8,
-      compress: {
-        warnings: false
-      }
+      sourceMap: true
     }),
     new HtmlWebpackPlugin({
-      template: 'src/index.html',
+      template: 'src/main/index.html',
       minify: {
         removeComments: true,
         collapseWhitespace: true,

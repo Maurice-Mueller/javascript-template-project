@@ -4,10 +4,13 @@
   "description": "- `npm init` / `npm init -f` -",
   "main": "src/main.ts",
   "scripts": {
+    "clean-mod": "rm -rf node_modules/",
+    "reset-mod": "npm run clean-mod && npm cache clean --force && npm cache clear --force && npm install",
     "clean-build": "rm -rf dist/",
     "build": "npm run clean-build && ts-node config/scripts/build.ts",
     "dev": "ts-node config/scripts/startDevServer.ts",
-    "prod": "npm run build && ts-node config/scripts/startProdServer.ts"
+    "prod": "npm run build && ts-node config/scripts/startProdServer.ts",
+    "test": "mocha-webpack --reporter progress --require ts-node/register --webpack-config config/webpack/webpack.test.conf.ts src/test/**/*.ts"
   },
   "repository": {
     "type": "git",
@@ -20,12 +23,21 @@
   },
   "homepage": "https://github.com/MoePad/javascript-template-project#readme",
   "devDependencies": {
+    "@types/chai": "^4.0.1",
+    "@types/jsdom": "^11.0.1",
+    "@types/mocha": "^2.2.41",
     "@types/vue": "^2.0.0",
+    "chai": "^4.1.0",
     "chalk": "^2.0.1",
     "compression": "^1.7.0",
     "css-loader": "^0.28.4",
     "express": "^4.15.3",
+    "extract-text-webpack-plugin": "^3.0.0",
     "html-webpack-plugin": "^2.29.0",
+    "jsdom": "^11.1.0",
+    "mocha": "^3.4.2",
+    "mocha-typescript": "^1.1.7",
+    "mocha-webpack": "^0.7.0",
     "open": "0.0.5",
     "path": "^0.12.7",
     "ts-loader": "^2.3.1",
