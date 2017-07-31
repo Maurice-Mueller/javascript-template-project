@@ -344,6 +344,7 @@
 
 ## Set up testing
 
+### Unit test TS
 - `npm install mocha @types/mocha chai @types/chai jsdom @types/jsdom mocha-typescript --save-dev`
   - using [mocha](https://mochajs.org/), [chai](http://chaijs.com/) and [jsdom](https://github.com/tmpvar/jsdom)
 - add `webpack.test.conf.ts` in `config/webpack`
@@ -368,3 +369,6 @@
 - add npm script for executing tests
   - `mocha-webpack --reporter progress --require ts-node/register --webpack-config config/webpack/webpack.test.conf.ts src/test/**/*.ts`
 - see test examples inside `src/test`
+
+### Unit test Vue.js
+- `npm install karma @types/karma karma-webpack karma-phantomjs-launcher karma-mocha phantomjs-prebuilt karma-mocha-reporter karma-coverage karma-chai karma-chrome-launcher --save-dev`

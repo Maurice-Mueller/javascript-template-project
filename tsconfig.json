@@ -26,5 +26,9 @@
   "include": [
       "./src/**/*",
       "./config/commons.d.ts"
+  ],
+  "typeRoots": [
+    "node_modules",
+    "config/commons.d.ts"
   ]
 }

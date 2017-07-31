@@ -1,3 +1,5 @@
 declare module 'uglifyjs-webpack-plugin'
 declare module 'open'
 declare module 'webpack-middleware'
+declare module 'webpack-node-externals'
+declare module 'webpack-dashboard/plugin'
