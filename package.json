@@ -10,7 +10,7 @@
     "build": "npm run clean-build && ts-node config/scripts/build.ts",
     "dev": "ts-node config/scripts/startDevServer.ts",
     "prod": "npm run build && ts-node config/scripts/startProdServer.ts",
-    "test-karma": "karma start config/karma/karma.conf.ts -v",
+    "test-karma": "karma start config/karma/karma.conf.js -v",
     "test-karma2": "karma start karma.conf.js --debug",
     "test2": "mocha-webpack --reporter progress --require ts-node/register --webpack-config config/webpack/webpack.test.conf.ts src/test/vue-for-test.ktest.ts",
     "test": "mocha-webpack --reporter progress --require ts-node/register --webpack-config config/webpack/webpack.test.conf.ts src/test/**/*.ts"
@@ -56,6 +56,7 @@
     "karma-mocha": "^1.3.0",
     "karma-mocha-reporter": "^2.2.3",
     "karma-phantomjs-launcher": "^1.0.4",
+    "karma-sourcemap-loader": "^0.3.7",
     "karma-typescript": "^3.0.4",
     "karma-typescript-preprocessor": "^0.3.1",
     "karma-webpack": "^2.0.4",
