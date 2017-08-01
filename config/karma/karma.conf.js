@@ -7,28 +7,36 @@ module.exports = function(config) {
     exclude: ['node_modules'],
     frameworks: ['mocha', 'karma-typescript'],
     // this is the entry file for all our tests.
-  //  files: [{pattern: 'src/test/**/*.ktest.ts', watch: false}],
-    files: [{pattern: './config/karma/index.js', watched: false}],
-    // we will pass the entry file to webpack for bundling.
+    files: [
+      {pattern: 'src/test/**/*.ktest0.ts', watch: false},
+      {pattern: 'src/main/**/*.ts', watch: false},
+      {pattern: 'src/main/**/*.vue', watch: false},
+      {pattern: './config/karma/index.js', watched: false}
+    ],
     preprocessors: {
         './config/karma/index.js': ['coverage', 'webpack', 'sourcemap'],
-        './src/**/*.ts': ['coverage', 'webpack', 'sourcemap']
-        //'./src/**/*.ts': ['karma-typescript', 'webpack']
+        //'./src/**/*.ts': ['coverage', 'webpack', 'sourcemap']
+         './src/**/*.ts': ['webpack', 'sourcemap'],
+         './src/**/*.vue': ['webpack', 'sourcemap']
       //  '*.ts': ['webpack']
     },
-    // use the webpack config
     webpack: {
       module: testConfig.module,
       resolve: testConfig.resolve
     },
-    // avoid walls of useless text
     webpackMiddleware: {
       noInfo: true
     },
     singleRun: true,
-    logLevel: 'debug',
+    //logLevel: 'debug',
     reporters: ['progress'],
     colors: true,
-    port: 9090
+    port: 9090,
+    karmaTypescriptConfig: {
+      compilerOptions: {
+        module: "commonjs"
+      },
+      tsconfig: "./tsconfig.json",
+    }
   })
 }

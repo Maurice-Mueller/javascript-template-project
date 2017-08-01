@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { suite, test} from 'mocha-typescript'
 
-import {add} from '@/typescript-for-test'
+import {add} from '../main/typescript-for-test'
 
 @suite
 class SimpleTest {
