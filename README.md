@@ -371,4 +371,4 @@
 - see test examples inside `src/test`
 
 ### Unit test Vue.js
-- `npm install karma @types/karma karma-webpack karma-phantomjs-launcher karma-mocha phantomjs-prebuilt karma-mocha-reporter karma-coverage karma-chai karma-chrome-launcher --save-dev`
+- `npm install karma @types/karma karma-webpack karma-mocha karma-mocha-reporter karma-coverage karma-chai karma-chrome-launcher --save-dev`

@@ -23,7 +23,7 @@ export default {
     rules: [
       {
         test: /\.ts$/,
-        include: [commons.resolve('src')/*, commons.resolve('config')*/],
+        include: [commons.resolve('src/main')],
         loader: 'ts-loader',
         options: {
           appendTsSuffixTo: [/\.vue$/]

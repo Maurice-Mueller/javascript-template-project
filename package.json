@@ -9,12 +9,9 @@
     "clean-build": "rm -rf dist/",
     "build": "npm run clean-build && ts-node config/scripts/build.ts",
     "dev": "ts-node config/scripts/startDevServer.ts",
-    "prod": "npm run build && ts-node config/scripts/startProdServer.ts",
-    "test-karma": "karma start config/karma/karma.conf.js",
-    "test-karma2": "karma start karma.conf.js --debug",
-    "test2": "mocha-webpack --reporter progress --require ts-node/register --webpack-config config/webpack/webpack.test.conf.ts src/test/vue-for-test.ktest.ts",
-    "test3": "mocha-webpack --reporter progress --require ts-node/register --webpack-config config/webpack/webpack.test.conf.ts src/test/ --recursive",
-    "test": "mocha-webpack --reporter progress --require ts-node/register --webpack-config config/webpack/webpack.test.conf.ts src/test/**/*.ts"
+    "prod": "npm run build && npm run start-prod",
+    "start-prod": "ts-node config/scripts/startProdServer.ts",
+    "test": "karma start config/karma/karma.conf.js"
   },
   "repository": {
     "type": "git",

@@ -6,7 +6,7 @@ import * as HtmlWebpackPlugin from 'html-webpack-plugin'
 import * as ExtractTextPlugin from 'extract-text-webpack-plugin'
 import * as UglifyJS from 'uglifyjs-webpack-plugin'
 
-const devConfig: any = merge(baseConfig, {
+const prodConfig: any = merge(baseConfig, {
   devtool: 'source-map',
   output: {
     path: commons.resolve('dist'),
@@ -56,6 +56,6 @@ const devConfig: any = merge(baseConfig, {
 
 //enable CSS extracting from vue single files
 //i.e. set extractCSS to true in vue loader of base config
-devConfig.module.rules[1].options.extractCSS = true
+prodConfig.module.rules[1].options.extractCSS = true
 
-export default devConfig
+export default prodConfig

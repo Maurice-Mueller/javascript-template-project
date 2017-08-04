@@ -24,7 +24,7 @@
     "node_modules"
   ],
   "include": [
-      "./src/**/*",
+      "./src/main/**/*",
       "./config/commons.d.ts"
   ]
 }
