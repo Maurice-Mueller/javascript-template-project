@@ -8,7 +8,7 @@ module.exports = function(config) {
     browsers: ['Chrome'],
     // exclude: ['node_modules'],
     // frameworks: ['mocha', 'chai', 'karma-typescript'],
-    frameworks: ['mocha', 'chai', 'karma-typescript'],
+    frameworks: ['mocha', 'chai'],
     // this is the entry file for all our tests.
     files: [
       // {pattern: 'src/test/**/*.ktest0.ts', watch: false},
