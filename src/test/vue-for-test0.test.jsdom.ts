@@ -1,5 +1,5 @@
-// import jsdom from 'jsdom'
-// const { JSDOM } = jsdom //get the constructor
+import jsdom from 'jsdom'
+const { JSDOM } = jsdom //get the constructor
 import { expect } from 'chai'
 import { suite, test} from 'mocha-typescript'
 
@@ -12,6 +12,8 @@ class SimpleTest {
 
   @test('test')
   public test4() {
+    let jsdomz: any = new JSDOM()
+    jsdomz = undefined
     const sub = this.clazz.sub(9, 9)
     expect(sub).to.equals(0)
   }

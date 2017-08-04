@@ -5,7 +5,7 @@ console.log('testConf: ' + JSON.stringify(testConfig))
 module.exports = function(config) {
   config.set({
     basePath: '../..',
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadless'],
     // exclude: ['node_modules'],
     // frameworks: ['mocha', 'chai', 'karma-typescript'],
     frameworks: ['mocha', 'chai'],
