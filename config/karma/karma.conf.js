@@ -41,17 +41,6 @@ module.exports = function(config) {
     // logLevel: 'debug',
     reporters: ['progress'],
     colors: true,
-    port: 9090,
-    karmaTypescriptConfig: {
-      compilerOptions: {
-        module: "commonjs",
-        "moduleResolution": "node"
-      },
-      // "include": [
-      //     "./src/**/*",
-      //     "./config/commons.d.ts"
-      // ],
-      tsconfig: "./tsconfig.json",
-    }
+    port: 9090
   })
 }
