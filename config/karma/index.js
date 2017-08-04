@@ -7,6 +7,7 @@
 
 Error.stackTraceLimit = Infinity;
 
+// var testContext = require.context('./../../src/test', true, /\.ktest0\.ts/);
 var testContext = require.context('./../../src/test', true, /\.ktest0\.ts/);
 
 function requireAll(requireContext) {
@@ -14,3 +15,6 @@ function requireAll(requireContext) {
 }
 
 var modules = requireAll(testContext);
+
+if(!global)
+  throw 'testContext: ' + JSON.stringify(testContext)

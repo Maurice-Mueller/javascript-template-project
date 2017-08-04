@@ -7,7 +7,7 @@ export default {
     app: commons.resolve('src/main/main.ts')
   },
   resolve: {
-    extensions: ['.js', '.ts', '.vue', '.json'],
+    extensions: ['.js', '.ts', '.vue', '.json', '.d.ts'],
     alias: {
       '@': commons.resolve('src/main')
     }
