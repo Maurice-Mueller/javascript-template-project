@@ -8,7 +8,7 @@ module.exports = function(config) {
     browsers: ['Chrome'],
     exclude: ['node_modules'],
     // frameworks: ['mocha', 'chai', 'karma-typescript'],
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['mocha', 'chai', 'karma-typescript'],
     // this is the entry file for all our tests.
     files: [
       // {pattern: 'src/test/**/*.ktest0.ts', watch: false},
@@ -42,12 +42,16 @@ module.exports = function(config) {
     reporters: ['progress'],
     colors: true,
     port: 9090,
-    // karmaTypescriptConfig: {
-    //   // compilerOptions: {
-    //   //   module: "commonjs",
-    //   //   "moduleResolution": "node"
-    //   // },
-    //   tsconfig: "./tsconfig.json",
-    // }
+    karmaTypescriptConfig: {
+      compilerOptions: {
+        module: "commonjs",
+        "moduleResolution": "node"
+      },
+  "include": [
+      "./src/**/*",
+      "./config/commons.d.ts"
+  ],
+      tsconfig: "./tsconfig.json",
+    }
   })
 }

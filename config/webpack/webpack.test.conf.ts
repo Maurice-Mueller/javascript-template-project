@@ -2,7 +2,7 @@ import * as merge from 'webpack-merge'
 //import baseConfig from './webpack.base.conf'
 import baseConfig from './webpack.base.conf'
 import commons from '../commons'
-import * as nodeExternals from 'webpack-node-externals'
+// import * as nodeExternals from 'webpack-node-externals'
 // import * as webpack from 'webpack'
 
 baseConfig.entry = undefined
@@ -31,7 +31,7 @@ const devConfig = merge(baseConfig, {
     //   }
     // })
   ],
-  externals: [nodeExternals()],
+  // externals: [nodeExternals()],
   // output: {
   //   path: commons.resolve('src/test'),
   //   filename: '[name].js'
