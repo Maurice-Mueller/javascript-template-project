@@ -12,10 +12,8 @@ class SimpleTest {
 
   @test('test')
   public test4() {
-    let a = 0
-    a = a + 9
-    expect(a).to.equals(9)
-    this.clazz = undefined
+    const sub = this.clazz.sub(9, 9)
+    expect(sub).to.equals(0)
   }
 
   //@test('1 - 1')

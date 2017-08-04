@@ -6,7 +6,7 @@ module.exports = function(config) {
   config.set({
     basePath: '../..',
     browsers: ['Chrome'],
-    exclude: ['node_modules'],
+    // exclude: ['node_modules'],
     // frameworks: ['mocha', 'chai', 'karma-typescript'],
     frameworks: ['mocha', 'chai', 'karma-typescript'],
     // this is the entry file for all our tests.
@@ -47,10 +47,10 @@ module.exports = function(config) {
         module: "commonjs",
         "moduleResolution": "node"
       },
-  "include": [
-      "./src/**/*",
-      "./config/commons.d.ts"
-  ],
+      // "include": [
+      //     "./src/**/*",
+      //     "./config/commons.d.ts"
+      // ],
       tsconfig: "./tsconfig.json",
     }
   })
