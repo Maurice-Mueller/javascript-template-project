@@ -8,7 +8,7 @@
 Error.stackTraceLimit = Infinity;
 
 // var testContext = require.context('./../../src/test', true, /\.ktest0\.ts/);
-var testContext = require.context('./../../src/test', true, /\.ktest\.ts/);
+var testContext = require.context('./../../src/test', true, /\.test\.js/);
 
 function requireAll(requireContext) {
   return requireContext.keys().map(requireContext);

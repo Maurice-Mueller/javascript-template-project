@@ -31,7 +31,7 @@ export default {
       },
       {
         test: /\.vue$/,
-        include: [commons.resolve('src')],
+        include: [commons.resolve('src/main')],
         loader: 'vue-loader',
         options: {
           esModule: true

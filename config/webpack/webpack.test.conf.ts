@@ -6,7 +6,7 @@ import * as nodeExternals from 'webpack-node-externals'
 // import * as webpack from 'webpack'
 
 baseConfig.entry = undefined
-baseConfig.plugins = undefined
+// baseConfig.plugins = undefined
 
 let global = 'hello'
 global = 'hello'
@@ -32,10 +32,10 @@ const devConfig = merge(baseConfig, {
     // })
   ],
   externals: [nodeExternals()],
-  output: {
-    path: commons.resolve('src/test'),
-    filename: '[name].js'
-  }
+  // output: {
+  //   path: commons.resolve('src/test'),
+  //   filename: '[name].js'
+  // }
 })
 
 export default devConfig
