@@ -33,6 +33,9 @@ const testConfig = merge(baseConfig, {
   },
   plugins: [
   ],
+  node: {
+    fs: 'empty'
+  }
 })
 
 export default testConfig
