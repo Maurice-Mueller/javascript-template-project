@@ -3,7 +3,7 @@ import {KeyManager} from '@/key-manager'
 
 describe('key-manager', () => {
     it('generate-keys', () => {
-      let keyManager = new KeyManager()
+      const keyManager = new KeyManager()
       keyManager.generateKeyPair()
     })
 })
