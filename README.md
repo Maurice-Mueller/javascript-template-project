@@ -11,6 +11,8 @@
       fs: 'empty'
     }
     ```
+* add `libsodium.d.ts`
+  * `declare module 'js-nacl'`
 * key-manager.ts
   * ```
     import * as nacl_factory from 'js-nacl'
