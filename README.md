@@ -4,7 +4,7 @@
 <!-- * `npm install node-gyp -g`
 * `npm install sodium --save-dev`
   * https://github.com/paixaop/node-sodium -->
-* `npm install js-nacl -save-dev`
+* `npm install js-nacl --save-dev`
 * add to `config/webpack/webpack.test.conf.ts`
   * ```
     node: {
