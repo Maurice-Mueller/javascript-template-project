@@ -45,3 +45,12 @@
      }
     }
     ```
+
+== ALTERNATIVE
+* `npm install tweetnacl`
+* use as in the following
+  * ```
+    import * as nacl from 'tweetnacl'
+
+    const keyPair: nacl.BoxKeyPair = nacl.box.keyPair()
+    ```
